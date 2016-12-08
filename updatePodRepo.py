@@ -208,7 +208,7 @@ def main():
     os.chdir(cur_file_dir())
 
     #无任何修改并且有framework文件的情况下 不做任何操作
-    if is_woking_directory_clean(cur_file_dir()) == 0 and len(check_framework_dir) > 0:
+    if is_woking_directory_clean(cur_file_dir()) == 0 and len(check_framework_dir()) > 0:
         print(os.path.basename(cur_file_dir()) + "没有修改记录，不做操作")
         return
 
@@ -228,7 +228,7 @@ def main():
     #提交git,打tag
     if git_update_with_tag(new_version_number) == 0:
         #更新pod
-        if pod_update(pod_name) == 0:
+        if pod_update(pod_name) == 0 and sys.argv[2]:
             #打包framework
             if pod_package_framework(pod_spec_file_name) == 0:
                 #处理framework文件
